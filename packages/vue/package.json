@@ -1,6 +1,6 @@
 {
   "name": "@bf-i18n/vue",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "description": "Vue integration for backend-friendly i18n",
   "type": "module",
   "main": "./dist/index.cjs",

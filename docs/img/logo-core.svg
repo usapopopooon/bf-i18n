@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="bf-i18n core logo">
+  <defs>
+    <linearGradient id="bg-core" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1f2937"></stop>
+      <stop offset="100%" stop-color="#111827"></stop>
+    </linearGradient>
+  </defs>
+
+  <path d="M136 80h240a56 56 0 0 1 56 56v192a56 56 0 0 1-56 56H252l-68 48v-48H136a56 56 0 0 1-56-56V136a56 56 0 0 1 56-56z" fill="url(#bg-core)" stroke="#60a5fa" stroke-width="20" stroke-linejoin="miter" stroke-miterlimit="10"></path>
+
+  <g stroke="#ef4444" stroke-width="26" stroke-linecap="round" stroke-linejoin="round" fill="none">
+    <path d="M192 188c-22 10-36 32-36 56s14 46 36 56"></path>
+    <path d="M320 188c22 10 36 32 36 56s-14 46-36 56"></path>
+    <path d="M236 212h40"></path>
+    <path d="M236 300h40"></path>
+  </g>
+
+  <g fill="#f97316">
+    <circle cx="256" cy="240" r="10"></circle>
+    <circle cx="256" cy="272" r="10"></circle>
+  </g>
+
+  <g transform="translate(300 330)">
+    <rect width="160" height="72" rx="18" fill="#ffffff" stroke="#93c5fd" stroke-width="6"></rect>
+    <text x="80" y="47" text-anchor="middle" font-family="system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial" font-size="28" font-weight="800" fill="#0f172a" letter-spacing="2">CORE</text>
+  </g>
+</svg>

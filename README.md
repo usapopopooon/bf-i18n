@@ -4,6 +4,10 @@
 [![npm version](https://img.shields.io/npm/v/@bf-i18n/core.svg)](https://www.npmjs.com/package/@bf-i18n/core)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+<p align="center">
+  <img src="docs/img/logo-main.svg" alt="bf-i18n logo" width="200">
+</p>
+
 A lightweight i18n library that reads Rails/Laravel i18n formats and makes them usable in JavaScript/TypeScript applications including React and Vue.
 
 ## Features

@@ -4,6 +4,10 @@
 [![npm version](https://img.shields.io/npm/v/@bf-i18n/vue.svg)](https://www.npmjs.com/package/@bf-i18n/vue)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+<p align="center">
+  <img src="../../docs/img/logo-vue.svg" alt="@bf-i18n/vue logo" width="200">
+</p>
+
 Vue 3 integration for bf-i18n. Provides composables, directives, and plugin to use Rails/Laravel translation formats in your Vue applications.
 
 Part of the [bf-i18n](https://github.com/usapopopooon/bf-i18n) project.

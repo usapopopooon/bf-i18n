@@ -4,6 +4,10 @@
 [![npm version](https://img.shields.io/npm/v/@bf-i18n/core.svg)](https://www.npmjs.com/package/@bf-i18n/core)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+<p align="center">
+  <img src="../../docs/img/logo-core.svg" alt="@bf-i18n/core logo" width="200">
+</p>
+
 A lightweight, framework-agnostic i18n library that supports Rails and Laravel translation formats for JavaScript/TypeScript applications.
 
 Part of the [bf-i18n](https://github.com/usapopopooon/bf-i18n) project.

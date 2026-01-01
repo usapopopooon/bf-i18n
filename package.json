@@ -1,6 +1,6 @@
 {
   "name": "bf-i18n",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "private": true,
   "description": "Rails/Laravel i18n format compatible library for React/Vue",
   "keywords": [

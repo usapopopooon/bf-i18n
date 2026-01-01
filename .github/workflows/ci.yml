@@ -57,7 +57,7 @@ jobs:
         run: npm run build --workspaces --if-present
 
       - name: Run tests
-        run: npm test --workspaces --if-present
+        run: npm test --workspaces --if-present -- --reporter=verbose
 
   e2e-test:
     runs-on: ubuntu-latest
@@ -82,6 +82,6 @@ jobs:
         run: npm run build
 
       - name: Run E2E tests
-        run: npx playwright test
+        run: npm run test:e2e -- --reporter=list
         env:
           HOME: /root
