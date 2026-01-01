@@ -1,6 +1,6 @@
-# backend-friendly-i18n
+# bf-i18n
 
-[![CI](https://github.com/usapopopooon/backend-friendly-i18n/actions/workflows/ci.yml/badge.svg)](https://github.com/usapopopooon/backend-friendly-i18n/actions/workflows/ci.yml)
+[![CI](https://github.com/usapopopooon/bf-i18n/actions/workflows/ci.yml/badge.svg)](https://github.com/usapopopooon/bf-i18n/actions/workflows/ci.yml)
 [![npm version](https://img.shields.io/npm/v/@bf-i18n/core.svg)](https://www.npmjs.com/package/@bf-i18n/core)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
