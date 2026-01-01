@@ -22,7 +22,8 @@
     "usapopopooon",
     "workspaces",
     "laravel",
-    "Laravel"
+    "Laravel",
+    "unstub"
   ],
   "ignorePaths": [
     "node_modules",
