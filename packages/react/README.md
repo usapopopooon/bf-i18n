@@ -1,6 +1,12 @@
 # @bf-i18n/react
 
-React integration for @bf-i18n/core.
+[![CI](https://github.com/usapopopooon/bf-i18n/actions/workflows/ci.yml/badge.svg)](https://github.com/usapopopooon/bf-i18n/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/@bf-i18n/react.svg)](https://www.npmjs.com/package/@bf-i18n/react)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+React integration for bf-i18n. Provides hooks, components, and HOC to use Rails/Laravel translation formats in your React applications.
+
+Part of the [bf-i18n](https://github.com/usapopopooon/bf-i18n) project.
 
 ## Installation
 

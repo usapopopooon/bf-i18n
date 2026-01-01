@@ -1,6 +1,12 @@
 # @bf-i18n/vue
 
-Vue 3 integration for @bf-i18n/core.
+[![CI](https://github.com/usapopopooon/bf-i18n/actions/workflows/ci.yml/badge.svg)](https://github.com/usapopopooon/bf-i18n/actions/workflows/ci.yml)
+[![npm version](https://img.shields.io/npm/v/@bf-i18n/vue.svg)](https://www.npmjs.com/package/@bf-i18n/vue)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
+Vue 3 integration for bf-i18n. Provides composables, directives, and plugin to use Rails/Laravel translation formats in your Vue applications.
+
+Part of the [bf-i18n](https://github.com/usapopopooon/bf-i18n) project.
 
 ## Installation
 

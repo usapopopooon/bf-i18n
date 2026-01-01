@@ -5,6 +5,16 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.5.6] - 2026-01-01
+
+### Changed
+
+#### Documentation
+- Simplify installation commands in README (remove redundant @bf-i18n/core)
+- Add npm version badges to Packages table in root README
+- Add CI badges, npm badges, and descriptions to each package README
+- Add links to root repository from each package README
+
 ## [0.5.5] - 2026-01-01
 
 ### Changed
