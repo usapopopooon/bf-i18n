@@ -1,6 +1,6 @@
 {
   "name": "@bf-i18n/react",
-  "version": "0.5.2",
+  "version": "0.5.5",
   "description": "React integration for backend-friendly i18n",
   "type": "module",
   "main": "./dist/index.cjs",

@@ -1,6 +1,6 @@
 {
   "name": "@bf-i18n/cli",
-  "version": "0.5.2",
+  "version": "0.5.5",
   "description": "CLI tool for backend-friendly i18n",
   "type": "module",
   "bin": {
