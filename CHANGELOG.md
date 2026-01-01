@@ -12,6 +12,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Documentation
 - Add logo images to all READMEs (root, core, react, vue, cli)
 
+### Changed
+
+#### CI
+- Enable verbose output for unit tests in CI
+- Enable list reporter for E2E tests in CI
+
 ## [0.5.6] - 2026-01-01
 
 ### Changed
