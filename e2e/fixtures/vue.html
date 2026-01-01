@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vue E2E Test</title>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "zod": "https://esm.sh/zod@3.23.8",
+      "vue": "https://esm.sh/vue@3.4.0/dist/vue.esm-browser.js",
+      "@bf-i18n/core": "/dist/core/index.js",
+      "@bf-i18n/vue": "/dist/vue/index.js"
+    }
+  }
+  </script>
+
+  <script type="module">
+    import { createApp, h } from 'vue';
+    import { createI18n } from '@bf-i18n/core';
+    import { I18nPlugin, useTranslation } from '@bf-i18n/vue';
+
+    const i18n = createI18n({
+      defaultLocale: 'en',
+      mode: 'rails',
+      translations: {
+        en: {
+          greeting: 'Hello, %{name}!',
+          items: {
+            zero: 'No items',
+            one: '1 item',
+            other: '%{count} items',
+          },
+        },
+        ja: {
+          greeting: 'こんにちは、%{name}さん！',
+          items: {
+            zero: 'アイテムなし',
+            one: '1個のアイテム',
+            other: '%{count}個のアイテム',
+          },
+        },
+      },
+    });
+
+    const App = {
+      setup() {
+        const { t, locale, setLocale } = useTranslation();
+
+        const switchLocale = () => {
+          setLocale(locale.value === 'en' ? 'ja' : 'en');
+        };
+
+        return { t, locale, switchLocale };
+      },
+      template: `
+        <div>
+          <h1>Vue i18n Test</h1>
+          <div id="greeting">{{ t('greeting', { name: 'Vue' }) }}</div>
+          <div id="items-zero">{{ t('items', { count: 0 }) }}</div>
+          <div id="items-one">{{ t('items', { count: 1 }) }}</div>
+          <div id="items-many">{{ t('items', { count: 5 }) }}</div>
+          <div id="current-locale">Locale: {{ locale }}</div>
+          <button id="switch-locale" @click="switchLocale">
+            {{ locale === 'en' ? 'Switch to Japanese' : 'Switch to English' }}
+          </button>
+        </div>
+      `,
+    };
+
+    const app = createApp(App);
+    app.use(I18nPlugin, { i18n });
+    app.mount('#app');
+  </script>
+</body>
+</html>
