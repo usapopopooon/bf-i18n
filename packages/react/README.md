@@ -5,7 +5,7 @@ React integration for @bf-i18n/core.
 ## Installation
 
 ```bash
-npm install @bf-i18n/core @bf-i18n/react
+npm install @bf-i18n/react
 ```
 
 ## Features

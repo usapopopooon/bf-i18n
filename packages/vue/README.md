@@ -5,7 +5,7 @@ Vue 3 integration for @bf-i18n/core.
 ## Installation
 
 ```bash
-npm install @bf-i18n/core @bf-i18n/vue
+npm install @bf-i18n/vue
 ```
 
 ## Features
