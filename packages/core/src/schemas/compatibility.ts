@@ -1,13 +1,13 @@
 import { z } from 'zod';
 
 /**
- * 互換性の問題レベル
+ * Compatibility issue level.
  */
 export const IssueLevelSchema = z.enum(['warning', 'error']);
 export type IssueLevel = z.infer<typeof IssueLevelSchema>;
 
 /**
- * 互換性の問題タイプ
+ * Compatibility issue type.
  */
 export const IssueTypeSchema = z.enum([
   'unsupported_plural_form',
@@ -20,26 +20,26 @@ export const IssueTypeSchema = z.enum([
 export type IssueType = z.infer<typeof IssueTypeSchema>;
 
 /**
- * 警告情報
+ * Warning information.
  */
 export const CompatibilityWarningSchema = z.object({
   /**
-   * 対象の翻訳キー
+   * Target translation key.
    */
   key: z.string(),
 
   /**
-   * 問題の種類
+   * Issue type.
    */
   type: IssueTypeSchema,
 
   /**
-   * 説明メッセージ
+   * Description message.
    */
   message: z.string(),
 
   /**
-   * 修正提案（あれば）
+   * Suggested fix (if available).
    */
   suggestion: z.string().optional(),
 });
@@ -47,26 +47,26 @@ export const CompatibilityWarningSchema = z.object({
 export type CompatibilityWarning = z.infer<typeof CompatibilityWarningSchema>;
 
 /**
- * エラー情報
+ * Error information.
  */
 export const CompatibilityErrorSchema = z.object({
   /**
-   * 対象の翻訳キー
+   * Target translation key.
    */
   key: z.string(),
 
   /**
-   * 問題の種類
+   * Issue type.
    */
   type: IssueTypeSchema,
 
   /**
-   * 説明メッセージ
+   * Description message.
    */
   message: z.string(),
 
   /**
-   * 修正提案（あれば）
+   * Suggested fix (if available).
    */
   suggestion: z.string().optional(),
 });
@@ -74,21 +74,21 @@ export const CompatibilityErrorSchema = z.object({
 export type CompatibilityError = z.infer<typeof CompatibilityErrorSchema>;
 
 /**
- * 互換性レポート
+ * Compatibility report.
  */
 export const CompatibilityReportSchema = z.object({
   /**
-   * 完全互換かどうか
+   * Whether fully compatible.
    */
   compatible: z.boolean(),
 
   /**
-   * 警告一覧（変換可能だが注意が必要）
+   * List of warnings (convertible but requires attention).
    */
   warnings: z.array(CompatibilityWarningSchema),
 
   /**
-   * エラー一覧（変換不可）
+   * List of errors (not convertible).
    */
   errors: z.array(CompatibilityErrorSchema),
 });
@@ -96,37 +96,37 @@ export const CompatibilityReportSchema = z.object({
 export type CompatibilityReport = z.infer<typeof CompatibilityReportSchema>;
 
 /**
- * 警告時のコールバック型
+ * Callback type for warnings.
  */
 export type OnWarningCallback = (warning: CompatibilityWarning) => void;
 
 /**
- * エラー時のコールバック型
+ * Callback type for errors.
  */
 export type OnErrorCallback = (error: CompatibilityError) => void;
 
 /**
- * 変換オプション
+ * Conversion options.
  */
 export const ConvertOptionsSchema = z.object({
   /**
-   * trueの場合、警告があれば変換中止
+   * If true, abort conversion on warnings.
    * @default false
    */
   strict: z.boolean().default(false),
 
   /**
-   * 警告時のコールバック
+   * Callback on warning.
    */
   onWarning: z.custom<OnWarningCallback>().optional(),
 
   /**
-   * エラー時のコールバック
+   * Callback on error.
    */
   onError: z.custom<OnErrorCallback>().optional(),
 
   /**
-   * 変換不可時の代替値
+   * Fallback value when conversion is not possible.
    */
   fallbackValue: z.string().nullable().default(null),
 });
@@ -135,21 +135,21 @@ export type ConvertOptions = z.input<typeof ConvertOptionsSchema>;
 export type ConvertOptionsResolved = z.output<typeof ConvertOptionsSchema>;
 
 /**
- * 変換結果
+ * Conversion result.
  */
 export const ConvertResultSchema = z.object({
   /**
-   * 変換成功かどうか
+   * Whether conversion succeeded.
    */
   success: z.boolean(),
 
   /**
-   * 変換後のデータ
+   * Converted data.
    */
   data: z.record(z.string(), z.unknown()).optional(),
 
   /**
-   * 互換性レポート
+   * Compatibility report.
    */
   report: CompatibilityReportSchema,
 });

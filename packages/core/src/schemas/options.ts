@@ -5,7 +5,7 @@ import { InterpolationOptionsSchema } from './interpolation.js';
 import { PluralizationOptionsSchema } from './pluralization.js';
 
 /**
- * 翻訳が見つからない場合のハンドラ
+ * Handler for missing translations.
  */
 export type MissingTranslationHandler = (
   key: string,
@@ -13,77 +13,77 @@ export type MissingTranslationHandler = (
 ) => string | undefined;
 
 /**
- * I18nコンストラクタオプション
+ * I18n constructor options.
  */
 export const I18nOptionsSchema = z.object({
   /**
-   * 使用時のフレームワークモード
+   * Framework mode for usage.
    * @default 'rails'
    */
   mode: ModeSchema.default('rails'),
 
   /**
-   * 入力データの形式
+   * Input data format.
    * @default 'auto'
    */
   sourceMode: SourceModeSchema.default('auto'),
 
   /**
-   * sourceとmodeが異なる場合に自動変換
+   * Auto-convert when source and mode differ.
    * @default true
    */
   autoConvert: z.boolean().default(true),
 
   /**
-   * 変換時に警告があればエラー
+   * Throw error on conversion warnings.
    * @default false
    */
   strictConversion: z.boolean().default(false),
 
   /**
-   * 翻訳リソース
+   * Translation resources.
    */
   translations: TranslationsSchema,
 
   /**
-   * デフォルトロケール
+   * Default locale.
    */
   defaultLocale: z.string(),
 
   /**
-   * 現在のロケール（指定しない場合はdefaultLocale）
+   * Current locale (defaults to defaultLocale if not specified).
    */
   locale: z.string().optional(),
 
   /**
-   * フォールバックロケール
+   * Fallback locale(s).
    */
   fallbackLocale: z.union([z.string(), z.array(z.string())]).optional(),
 
   /**
-   * 翻訳が見つからない場合のコールバック
-   * TypeScriptの型として定義（ランタイム検証はスキップ）
+   * Callback for missing translations.
+   * Defined as TypeScript type (runtime validation skipped).
    */
   missingTranslationHandler: z.custom<MissingTranslationHandler>().optional(),
 
   /**
-   * 補間設定（指定しない場合はモードに依存）
+   * Interpolation options (mode-dependent if not specified).
    */
   interpolation: InterpolationOptionsSchema.partial().optional(),
 
   /**
-   * 複数形設定（指定しない場合はモードに依存）
+   * Pluralization options (mode-dependent if not specified).
    */
   pluralization: PluralizationOptionsSchema.partial().optional(),
 
   /**
-   * HTML翻訳を許可するサフィックス
+   * Suffix to allow HTML in translations.
    * @default '_html'
    */
   htmlSuffix: z.string().default('_html'),
 
   /**
-   * デバッグモード
+   * Debug mode.
    * @default false
    */
   debug: z.boolean().default(false),
@@ -93,31 +93,31 @@ export type I18nOptions = z.input<typeof I18nOptionsSchema>;
 export type I18nOptionsResolved = z.output<typeof I18nOptionsSchema>;
 
 /**
- * tメソッドのオプション
+ * Options for the t method.
  */
 export const TranslateOptionsSchema = z.object({
   /**
-   * デフォルト値
+   * Default value.
    */
   default: z.union([z.string(), z.array(z.string())]).optional(),
 
   /**
-   * スコープ（プレフィックス）
+   * Scope (prefix).
    */
   scope: z.union([z.string(), z.array(z.string())]).optional(),
 
   /**
-   * 複数形用のカウント
+   * Count for pluralization.
    */
   count: z.number().optional(),
 
   /**
-   * ロケール上書き
+   * Locale override.
    */
   locale: z.string().optional(),
 });
 
-// 補間変数はランタイム検証せず、TypeScript型のみで許可
+// Interpolation variables are allowed via TypeScript type only (no runtime validation)
 export type TranslateOptions = z.infer<typeof TranslateOptionsSchema> & {
   [key: string]: unknown;
 };

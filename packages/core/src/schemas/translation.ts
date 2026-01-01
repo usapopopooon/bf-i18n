@@ -1,8 +1,8 @@
 import { z } from 'zod';
 
 /**
- * 翻訳値の基本型
- * string | number | boolean | null | 配列 | オブジェクト
+ * Base type for translation values.
+ * string | number | boolean | null | array | object
  */
 export const TranslationValueSchema: z.ZodType<TranslationValue> = z.lazy(() =>
   z.union([
@@ -24,7 +24,7 @@ export type TranslationValue =
   | { [key: string]: TranslationValue };
 
 /**
- * 翻訳リソースのネストしたオブジェクト構造
+ * Nested object structure for translation resources.
  */
 export const TranslationObjectSchema: z.ZodType<TranslationObject> = z.lazy(
   () => z.record(z.string(), TranslationValueSchema)
@@ -35,14 +35,14 @@ export type TranslationObject = {
 };
 
 /**
- * ロケールごとの翻訳リソース
+ * Translation resources per locale.
  * { ja: { ... }, en: { ... } }
  */
 export const TranslationsSchema = z.record(z.string(), TranslationObjectSchema);
 export type Translations = z.infer<typeof TranslationsSchema>;
 
 /**
- * 複数形キーの種類（Rails形式）
+ * Plural category keys (Rails format).
  */
 export const PluralCategorySchema = z.enum([
   'zero',
@@ -55,7 +55,7 @@ export const PluralCategorySchema = z.enum([
 export type PluralCategory = z.infer<typeof PluralCategorySchema>;
 
 /**
- * 複数形オブジェクト（Rails形式）
+ * Plural object (Rails format).
  */
 export const PluralObjectSchema = z.object({
   zero: z.string().optional(),

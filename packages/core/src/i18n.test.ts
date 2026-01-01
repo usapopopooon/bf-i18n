@@ -197,7 +197,7 @@ describe('I18n', () => {
 
     it('should check specific locale with fallback', () => {
       expect(i18n.exists('messages.nested.deep', 'en')).toBe(true);
-      // 'ja' にはないが、フォールバックで 'en' が見つかるので true
+      // Not in 'ja', but fallback finds it in 'en', so returns true
       expect(i18n.exists('messages.nested.deep', 'ja')).toBe(true);
     });
 

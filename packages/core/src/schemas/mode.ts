@@ -1,60 +1,60 @@
 import { z } from 'zod';
 
 /**
- * 組み込みのバックエンドフレームワークモード
- * 将来的に django, spring, phoenix 等を追加可能
+ * Built-in backend framework modes.
+ * Future additions may include django, spring, phoenix, etc.
  */
 export const BuiltInModeSchema = z.enum(['rails', 'laravel']);
 export type BuiltInMode = z.infer<typeof BuiltInModeSchema>;
 
 /**
- * フレームワークモード
- * 組み込みモードに加え、カスタムモード（文字列）も許可
- * これにより将来的な拡張やユーザー定義モードに対応
+ * Framework mode.
+ * Allows built-in modes plus custom mode strings for extensibility
+ * and user-defined modes.
  */
 export const ModeSchema = z.union([BuiltInModeSchema, z.string()]);
 export type Mode = z.infer<typeof ModeSchema>;
 
 /**
- * 組み込みのソースモード
+ * Built-in source modes.
  */
 export const BuiltInSourceModeSchema = z.enum(['rails', 'laravel', 'auto']);
 export type BuiltInSourceMode = z.infer<typeof BuiltInSourceModeSchema>;
 
 /**
- * ソースモード（入力データの形式）
- * 組み込みモードに加え、カスタムモード（文字列）も許可
+ * Source mode (format of input data).
+ * Allows built-in modes plus custom mode strings.
  */
 export const SourceModeSchema = z.union([BuiltInSourceModeSchema, z.string()]);
 export type SourceMode = z.infer<typeof SourceModeSchema>;
 
 /**
- * モード設定のインターフェース
- * 各モードはこのインターフェースを実装することで拡張可能
+ * Mode configuration interface.
+ * Each mode can be extended by implementing this interface.
  */
 export const ModeConfigSchema = z.object({
   /**
-   * モード名
+   * Mode name.
    */
   name: z.string(),
 
   /**
-   * 補間変数のプレフィックス
+   * Interpolation variable prefix.
    */
   interpolationPrefix: z.string(),
 
   /**
-   * 補間変数のサフィックス
+   * Interpolation variable suffix.
    */
   interpolationSuffix: z.string(),
 
   /**
-   * 複数形の処理タイプ
+   * Pluralization type.
    */
   pluralizationType: z.enum(['key', 'pipe', 'icu', 'custom']),
 
   /**
-   * サポートするファイル形式
+   * Supported file formats.
    */
   supportedFormats: z.array(z.string()),
 });
@@ -62,7 +62,7 @@ export const ModeConfigSchema = z.object({
 export type ModeConfig = z.infer<typeof ModeConfigSchema>;
 
 /**
- * 組み込みモードの設定
+ * Built-in mode configurations.
  */
 export const BUILT_IN_MODE_CONFIGS: Record<BuiltInMode, ModeConfig> = {
   rails: {
