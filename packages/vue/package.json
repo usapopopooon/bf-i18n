@@ -32,14 +32,14 @@
   ],
   "author": "",
   "license": "MIT",
-  "homepage": "https://github.com/usapopopooon/backend-friendly-i18n#readme",
+  "homepage": "https://github.com/usapopopooon/bf-i18n#readme",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/usapopopooon/backend-friendly-i18n.git",
+    "url": "git+https://github.com/usapopopooon/bf-i18n.git",
     "directory": "packages/vue"
   },
   "bugs": {
-    "url": "https://github.com/usapopopooon/backend-friendly-i18n/issues"
+    "url": "https://github.com/usapopopooon/bf-i18n/issues"
   },
   "scripts": {
     "build": "tsup",
