@@ -27,10 +27,13 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Build core first
+        run: npm run build -w @bf-i18n/core
+
       - name: Run typecheck
         run: npm run typecheck --workspaces --if-present
 
-      - name: Run build
+      - name: Run build (remaining packages)
         run: npm run build --workspaces --if-present
 
       - name: Run tests
