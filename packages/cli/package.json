@@ -1,6 +1,6 @@
 {
   "name": "@bf-i18n/cli",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "CLI tool for backend-friendly i18n",
   "type": "module",
   "bin": {
@@ -23,6 +23,15 @@
   ],
   "author": "",
   "license": "MIT",
+  "homepage": "https://github.com/usapopopooon/backend-friendly-i18n#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usapopopooon/backend-friendly-i18n.git",
+    "directory": "packages/cli"
+  },
+  "bugs": {
+    "url": "https://github.com/usapopopooon/backend-friendly-i18n/issues"
+  },
   "scripts": {
     "build": "tsup",
     "test": "vitest run",

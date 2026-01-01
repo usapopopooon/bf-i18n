@@ -1,6 +1,6 @@
 {
   "name": "@bf-i18n/react",
-  "version": "0.5.1",
+  "version": "0.5.2",
   "description": "React integration for backend-friendly i18n",
   "type": "module",
   "main": "./dist/index.cjs",
@@ -32,6 +32,15 @@
   ],
   "author": "",
   "license": "MIT",
+  "homepage": "https://github.com/usapopopooon/backend-friendly-i18n#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/usapopopooon/backend-friendly-i18n.git",
+    "directory": "packages/react"
+  },
+  "bugs": {
+    "url": "https://github.com/usapopopooon/backend-friendly-i18n/issues"
+  },
   "scripts": {
     "build": "tsup",
     "test": "vitest run",
