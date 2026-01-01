@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>React E2E Test</title>
+</head>
+<body>
+  <div id="root"></div>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "zod": "https://esm.sh/zod@3.23.8",
+      "react": "https://esm.sh/react@18.2.0",
+      "react/jsx-runtime": "https://esm.sh/react@18.2.0/jsx-runtime",
+      "react-dom/client": "https://esm.sh/react-dom@18.2.0/client",
+      "@bf-i18n/core": "/dist/core/index.js",
+      "@bf-i18n/react": "/dist/react/index.js"
+    }
+  }
+  </script>
+
+  <script type="module">
+    import React from 'react';
+    import { createRoot } from 'react-dom/client';
+    import { createI18n } from '@bf-i18n/core';
+    import { I18nProvider, useTranslation, Trans } from '@bf-i18n/react';
+
+    const i18n = createI18n({
+      defaultLocale: 'en',
+      mode: 'rails',
+      translations: {
+        en: {
+          greeting: 'Hello, %{name}!',
+          items: {
+            zero: 'No items',
+            one: '1 item',
+            other: '%{count} items',
+          },
+          welcome: 'Welcome to <strong>React</strong> i18n!',
+        },
+        ja: {
+          greeting: 'こんにちは、%{name}さん！',
+          items: {
+            zero: 'アイテムなし',
+            one: '1個のアイテム',
+            other: '%{count}個のアイテム',
+          },
+          welcome: '<strong>React</strong> i18nへようこそ！',
+        },
+      },
+    });
+
+    function App() {
+      const { t, locale, setLocale } = useTranslation();
+
+      return React.createElement('div', null,
+        React.createElement('h1', null, 'React i18n Test'),
+        React.createElement('div', { id: 'greeting' }, t('greeting', { name: 'React' })),
+        React.createElement('div', { id: 'items-zero' }, t('items', { count: 0 })),
+        React.createElement('div', { id: 'items-one' }, t('items', { count: 1 })),
+        React.createElement('div', { id: 'items-many' }, t('items', { count: 5 })),
+        React.createElement('div', { id: 'current-locale' }, `Locale: ${locale}`),
+        React.createElement('button', {
+          id: 'switch-locale',
+          onClick: () => setLocale(locale === 'en' ? 'ja' : 'en')
+        }, locale === 'en' ? 'Switch to Japanese' : 'Switch to English')
+      );
+    }
+
+    const root = createRoot(document.getElementById('root'));
+    root.render(
+      React.createElement(I18nProvider, { i18n },
+        React.createElement(App)
+      )
+    );
+  </script>
+</body>
+</html>

@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vanilla JS E2E Test</title>
+</head>
+<body>
+  <h1>Vanilla JS i18n Test</h1>
+  <div id="greeting"></div>
+  <div id="items-zero"></div>
+  <div id="items-one"></div>
+  <div id="items-many"></div>
+  <div id="current-locale"></div>
+  <button id="switch-locale">Switch to Japanese</button>
+
+  <script type="importmap">
+  {
+    "imports": {
+      "zod": "https://esm.sh/zod@3.23.8",
+      "@bf-i18n/core": "/dist/core/index.js"
+    }
+  }
+  </script>
+
+  <script type="module">
+    import { createI18n } from '@bf-i18n/core';
+
+    const i18n = createI18n({
+      defaultLocale: 'en',
+      mode: 'rails',
+      translations: {
+        en: {
+          greeting: 'Hello, %{name}!',
+          items: {
+            zero: 'No items',
+            one: '1 item',
+            other: '%{count} items',
+          },
+        },
+        ja: {
+          greeting: 'こんにちは、%{name}さん！',
+          items: {
+            zero: 'アイテムなし',
+            one: '1個のアイテム',
+            other: '%{count}個のアイテム',
+          },
+        },
+      },
+    });
+
+    function render() {
+      document.getElementById('greeting').textContent = i18n.t('greeting', { name: 'World' });
+      document.getElementById('items-zero').textContent = i18n.t('items', { count: 0 });
+      document.getElementById('items-one').textContent = i18n.t('items', { count: 1 });
+      document.getElementById('items-many').textContent = i18n.t('items', { count: 5 });
+      document.getElementById('current-locale').textContent = `Locale: ${i18n.locale}`;
+    }
+
+    document.getElementById('switch-locale').addEventListener('click', () => {
+      i18n.locale = i18n.locale === 'en' ? 'ja' : 'en';
+      document.getElementById('switch-locale').textContent =
+        i18n.locale === 'en' ? 'Switch to Japanese' : 'Switch to English';
+      render();
+    });
+
+    render();
+  </script>
+</body>
+</html>
