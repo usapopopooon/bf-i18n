@@ -1,0 +1,43 @@
+{
+  "name": "@bf-i18n/cli",
+  "version": "0.1.0",
+  "description": "CLI tool for backend-friendly i18n",
+  "type": "module",
+  "bin": {
+    "bf-i18n": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "keywords": [
+    "i18n",
+    "cli",
+    "yaml",
+    "json",
+    "php",
+    "rails",
+    "laravel"
+  ],
+  "author": "",
+  "license": "MIT",
+  "scripts": {
+    "build": "tsup",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "typecheck": "tsc --noEmit",
+    "clean": "rm -rf dist"
+  },
+  "dependencies": {
+    "@bf-i18n/core": "*",
+    "js-yaml": "^4.1.0"
+  },
+  "devDependencies": {
+    "@types/js-yaml": "^4.0.9",
+    "@types/node": "^20.10.0",
+    "tsup": "^8.0.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0"
+  }
+}

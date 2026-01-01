@@ -1,0 +1,50 @@
+{
+  "name": "backend-friendly-i18n",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Rails/Laravel i18n format compatible library for React/Vue",
+  "keywords": [
+    "i18n",
+    "internationalization",
+    "localization",
+    "rails",
+    "laravel",
+    "react",
+    "vue",
+    "typescript",
+    "yaml",
+    "json",
+    "php",
+    "translation",
+    "l10n",
+    "frontend",
+    "backend",
+    "fullstack"
+  ],
+  "author": "",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "volta": {
+    "node": "20.10.0"
+  },
+  "workspaces": [
+    "packages/*"
+  ],
+  "scripts": {
+    "build": "npm run build --workspaces",
+    "test": "npm run test --workspaces",
+    "lint": "npm run lint --workspaces --if-present",
+    "typecheck": "npm run typecheck --workspaces",
+    "clean": "npm run clean --workspaces"
+  },
+  "devDependencies": {
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0",
+    "vitest": "^1.0.0",
+    "tsup": "^8.0.0",
+    "prettier": "^3.1.0"
+  }
+}
