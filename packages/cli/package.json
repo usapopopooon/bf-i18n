@@ -31,6 +31,8 @@
   },
   "dependencies": {
     "@bf-i18n/core": "*",
+    "chalk": "^4.1.2",
+    "commander": "^14.0.2",
     "js-yaml": "^4.1.0"
   },
   "devDependencies": {
