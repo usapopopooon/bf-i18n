@@ -19,12 +19,12 @@ A lightweight i18n library that reads Rails/Laravel i18n formats and makes them 
 
 ## Packages
 
-| Package | Description |
-|---------|-------------|
-| [@bf-i18n/core](./packages/core) | Core i18n library (framework-agnostic) |
-| [@bf-i18n/react](./packages/react) | React integration (hooks, components, HOC) |
-| [@bf-i18n/vue](./packages/vue) | Vue integration (plugin, composables, directive) |
-| [@bf-i18n/cli](./packages/cli) | CLI tool for translation management |
+| Package | npm | Description |
+|---------|-----|-------------|
+| [@bf-i18n/core](./packages/core) | [![npm](https://img.shields.io/npm/v/@bf-i18n/core.svg)](https://www.npmjs.com/package/@bf-i18n/core) | Core i18n library (framework-agnostic) |
+| [@bf-i18n/react](./packages/react) | [![npm](https://img.shields.io/npm/v/@bf-i18n/react.svg)](https://www.npmjs.com/package/@bf-i18n/react) | React integration (hooks, components, HOC) |
+| [@bf-i18n/vue](./packages/vue) | [![npm](https://img.shields.io/npm/v/@bf-i18n/vue.svg)](https://www.npmjs.com/package/@bf-i18n/vue) | Vue integration (plugin, composables, directive) |
+| [@bf-i18n/cli](./packages/cli) | [![npm](https://img.shields.io/npm/v/@bf-i18n/cli.svg)](https://www.npmjs.com/package/@bf-i18n/cli) | CLI tool for translation management |
 
 ## Installation
 
@@ -32,11 +32,11 @@ A lightweight i18n library that reads Rails/Laravel i18n formats and makes them 
 # Core only (vanilla JS/TS)
 npm install @bf-i18n/core
 
-# With React
-npm install @bf-i18n/core @bf-i18n/react
+# React
+npm install @bf-i18n/react
 
-# With Vue
-npm install @bf-i18n/core @bf-i18n/vue
+# Vue
+npm install @bf-i18n/vue
 
 # CLI tool
 npm install -g @bf-i18n/cli
