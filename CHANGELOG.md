@@ -5,6 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.0] - 2026-01-01
+
+### Added
+
+#### @bf-i18n/core
+- `CompatibilityChecker` class for checking translation compatibility between modes
+- `checkCompatibility()` function to analyze translations before conversion
+- Detection of unsupported plural forms when converting between Rails and Laravel
+- Warning generation for range-based plural syntax in Laravel mode
+- Error detection for invalid syntax that cannot be converted
+
+#### @bf-i18n/cli
+- PHP array file parsing support for Laravel translation files
+- `--check-only` flag for convert command to validate without converting
+- `--strict` flag for convert command to fail on warnings
+- Compatibility warnings and errors displayed before conversion
+- Support for `.php` extension in parse and convert commands
+
+### Changed
+
+#### @bf-i18n/cli
+- Convert command now checks compatibility before proceeding
+- Conversion aborts automatically on errors
+- Warnings are displayed with suggestions for resolution
+
 ## [0.1.0] - 2026-01-01
 
 ### Added

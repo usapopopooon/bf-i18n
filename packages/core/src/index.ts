@@ -12,3 +12,4 @@ export {
   createLaravelInterpolator,
 } from './interpolator.js';
 export { Pluralizer, createRailsPluralizer, createLaravelPluralizer } from './pluralizer.js';
+export { CompatibilityChecker, checkCompatibility } from './compatibility.js';
