@@ -97,4 +97,57 @@ describe('vT directive', () => {
 
     expect(wrapper.text()).toBe('こんにちは');
   });
+
+  it('sanitizes HTML to prevent XSS attacks', () => {
+    const i18n = createI18n({
+      defaultLocale: 'en',
+      translations: {
+        en: {
+          xss: '<script>alert("xss")</script><strong>Safe</strong>',
+          onEvent: '<div onclick="alert(1)">Click</div>',
+          jsHref: '<a href="javascript:alert(1)">Link</a>',
+        },
+      },
+    });
+
+    const TestScript = defineComponent({
+      template: '<div v-t.html="\'xss\'"></div>',
+    });
+
+    const wrapper1 = mount(TestScript, {
+      global: {
+        plugins: [[I18nPlugin, { i18n }]],
+      },
+    });
+
+    // Script tags should be removed (text content kept)
+    expect(wrapper1.html()).not.toContain('<script>');
+    expect(wrapper1.html()).toContain('<strong>Safe</strong>');
+
+    const TestEvent = defineComponent({
+      template: '<div v-t.html="\'onEvent\'"></div>',
+    });
+
+    const wrapper2 = mount(TestEvent, {
+      global: {
+        plugins: [[I18nPlugin, { i18n }]],
+      },
+    });
+
+    // Event handlers should be removed
+    expect(wrapper2.html()).not.toContain('onclick');
+
+    const TestHref = defineComponent({
+      template: '<div v-t.html="\'jsHref\'"></div>',
+    });
+
+    const wrapper3 = mount(TestHref, {
+      global: {
+        plugins: [[I18nPlugin, { i18n }]],
+      },
+    });
+
+    // javascript: URLs should be removed
+    expect(wrapper3.html()).not.toContain('javascript:');
+  });
 });

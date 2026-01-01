@@ -5,6 +5,46 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0] - 2026-01-01
+
+### Added
+
+#### @bf-i18n/core
+- `detectBrowserLocale()` function to detect user's preferred locale from browser
+- `detectBrowserLocale` option in `createI18n()` to automatically use browser locale
+- `hasLocale()` method to check if a locale is available
+- `getMissingKeys()`, `clearMissingKeys()`, `hasMissingKeys()` methods for tracking missing translation keys
+- `MissingKeyInfo` type for missing key tracking data
+- `isBrowser()` utility function to check if running in browser environment
+- Comprehensive test suite for React package (provider, hooks, Trans component, HOC)
+- Edge case tests for pluralization, locale validation, and deeply nested keys
+
+#### @bf-i18n/vue
+- HTML sanitization in `v-t.html` directive to prevent XSS attacks
+- Allowlist-based sanitization for safe HTML tags and attributes
+
+#### @bf-i18n/cli
+- `extract` command to scan source code and extract translation keys
+- Support for multiple file extensions (`.ts`, `.tsx`, `.js`, `.jsx`, `.vue`)
+- `--unique` flag to show only unique keys
+- `--json` flag for JSON output
+- `--output` flag to write results to file
+
+#### @bf-i18n/react
+- Complete test suite with 31 tests covering all components and hooks
+
+### Changed
+
+#### @bf-i18n/core
+- Locale setter now validates input and throws on empty/invalid strings
+- Locale strings are trimmed before setting
+- Default mode is `rails` for consistency
+
+### Security
+
+#### @bf-i18n/vue
+- Fixed potential XSS vulnerability in `v-t.html` directive by sanitizing HTML content
+
 ## [0.3.0] - 2026-01-01
 
 ### Added

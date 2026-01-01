@@ -309,4 +309,251 @@ describe('I18n', () => {
       expect(i18n.t('items_full', { count: 5 })).toBe('5 items');
     });
   });
+
+  describe('edge cases', () => {
+    describe('locale validation', () => {
+      it('should throw error for empty string locale', () => {
+        const i18n = createI18n({
+          translations,
+          defaultLocale: 'en',
+        });
+        expect(() => {
+          i18n.locale = '';
+        }).toThrow('Locale must be a non-empty string');
+      });
+
+      it('should throw error for whitespace-only locale', () => {
+        const i18n = createI18n({
+          translations,
+          defaultLocale: 'en',
+        });
+        expect(() => {
+          i18n.locale = '   ';
+        }).toThrow('Locale must be a non-empty string');
+      });
+
+      it('should trim locale string', () => {
+        const i18n = createI18n({
+          translations,
+          defaultLocale: 'en',
+        });
+        i18n.locale = '  ja  ';
+        expect(i18n.locale).toBe('ja');
+      });
+    });
+
+    describe('hasLocale', () => {
+      it('should return true for available locale', () => {
+        const i18n = createI18n({
+          translations,
+          defaultLocale: 'en',
+        });
+        expect(i18n.hasLocale('en')).toBe(true);
+        expect(i18n.hasLocale('ja')).toBe(true);
+      });
+
+      it('should return false for unavailable locale', () => {
+        const i18n = createI18n({
+          translations,
+          defaultLocale: 'en',
+        });
+        expect(i18n.hasLocale('fr')).toBe(false);
+        expect(i18n.hasLocale('de')).toBe(false);
+      });
+    });
+
+    describe('pluralization edge cases', () => {
+      const i18n = createI18n({
+        translations: {
+          en: {
+            items: {
+              zero: 'No items',
+              one: 'One item',
+              other: '%{count} items',
+            },
+          },
+        },
+        defaultLocale: 'en',
+      });
+
+      it('should handle negative count', () => {
+        // Intl.PluralRules treats -1 as 'one' in English
+        expect(i18n.t('items', { count: -1 })).toBe('One item');
+        expect(i18n.t('items', { count: -5 })).toBe('-5 items');
+      });
+
+      it('should handle decimal count', () => {
+        expect(i18n.t('items', { count: 1.5 })).toBe('1.5 items');
+        expect(i18n.t('items', { count: 0.5 })).toBe('0.5 items');
+      });
+
+      it('should handle very large count', () => {
+        expect(i18n.t('items', { count: 1000000 })).toBe('1000000 items');
+      });
+    });
+
+    describe('deeply nested keys', () => {
+      it('should handle very deep nesting', () => {
+        const i18n = createI18n({
+          translations: {
+            en: {
+              a: { b: { c: { d: { e: { f: 'Deep value' } } } } },
+            },
+          },
+          defaultLocale: 'en',
+        });
+        expect(i18n.t('a.b.c.d.e.f')).toBe('Deep value');
+      });
+
+      it('should return key for partial path', () => {
+        const i18n = createI18n({
+          translations: {
+            en: {
+              a: { b: { c: 'Value' } },
+            },
+          },
+          defaultLocale: 'en',
+        });
+        // 'a.b' returns an object, not a string
+        expect(i18n.t('a.b')).toBe('{"c":"Value"}');
+      });
+    });
+
+    describe('special characters in keys', () => {
+      it('should handle keys with special characters', () => {
+        const i18n = createI18n({
+          translations: {
+            en: {
+              'with-dash': 'Dashed',
+              with_underscore: 'Underscored',
+              'with.dot': 'Dotted (as key, not nested)',
+            },
+          },
+          defaultLocale: 'en',
+        });
+        expect(i18n.t('with-dash')).toBe('Dashed');
+        expect(i18n.t('with_underscore')).toBe('Underscored');
+      });
+    });
+
+    describe('empty translations', () => {
+      it('should handle empty string translation', () => {
+        const i18n = createI18n({
+          translations: {
+            en: { empty: '' },
+          },
+          defaultLocale: 'en',
+        });
+        expect(i18n.t('empty')).toBe('');
+      });
+
+      it('should handle empty translation object', () => {
+        const i18n = createI18n({
+          translations: {
+            en: {},
+          },
+          defaultLocale: 'en',
+        });
+        expect(i18n.t('any.key')).toBe('any.key');
+      });
+    });
+
+    describe('mode getter', () => {
+      it('should return the mode', () => {
+        const i18n = createI18n({
+          translations,
+          defaultLocale: 'en',
+          mode: 'rails',
+        });
+        expect(i18n.mode).toBe('rails');
+      });
+
+      it('should default to rails mode', () => {
+        const i18n = createI18n({
+          translations,
+          defaultLocale: 'en',
+        });
+        expect(i18n.mode).toBe('rails');
+      });
+    });
+
+    describe('getTranslations', () => {
+      it('should return translations object', () => {
+        const i18n = createI18n({
+          translations,
+          defaultLocale: 'en',
+        });
+        expect(i18n.getTranslations()).toStrictEqual(translations);
+      });
+    });
+
+    describe('missing key tracking', () => {
+      it('should track missing keys', () => {
+        const i18n = createI18n({
+          translations: { en: { hello: 'Hello' } },
+          defaultLocale: 'en',
+        });
+
+        expect(i18n.hasMissingKeys()).toBe(false);
+        expect(i18n.getMissingKeys()).toHaveLength(0);
+
+        // Access a missing key
+        i18n.t('nonexistent.key');
+
+        expect(i18n.hasMissingKeys()).toBe(true);
+        expect(i18n.getMissingKeys()).toHaveLength(1);
+        expect(i18n.getMissingKeys()[0].key).toBe('nonexistent.key');
+        expect(i18n.getMissingKeys()[0].locale).toBe('en');
+      });
+
+      it('should not duplicate missing keys', () => {
+        const i18n = createI18n({
+          translations: { en: {} },
+          defaultLocale: 'en',
+        });
+
+        i18n.t('missing');
+        i18n.t('missing');
+        i18n.t('missing');
+
+        expect(i18n.getMissingKeys()).toHaveLength(1);
+      });
+
+      it('should track missing keys per locale', () => {
+        const i18n = createI18n({
+          translations: { en: {}, ja: {} },
+          defaultLocale: 'en',
+        });
+
+        i18n.t('key1');
+        i18n.t('key1', { locale: 'ja' });
+
+        expect(i18n.getMissingKeys()).toHaveLength(2);
+      });
+
+      it('should clear missing keys', () => {
+        const i18n = createI18n({
+          translations: { en: {} },
+          defaultLocale: 'en',
+        });
+
+        i18n.t('missing');
+        expect(i18n.hasMissingKeys()).toBe(true);
+
+        i18n.clearMissingKeys();
+        expect(i18n.hasMissingKeys()).toBe(false);
+        expect(i18n.getMissingKeys()).toHaveLength(0);
+      });
+
+      it('should not track existing keys', () => {
+        const i18n = createI18n({
+          translations: { en: { hello: 'Hello' } },
+          defaultLocale: 'en',
+        });
+
+        i18n.t('hello');
+        expect(i18n.hasMissingKeys()).toBe(false);
+      });
+    });
+  });
 });

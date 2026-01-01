@@ -49,8 +49,17 @@ export const I18nOptionsSchema = z.object({
 
   /**
    * Current locale (defaults to defaultLocale if not specified).
+   * If detectBrowserLocale is true and locale is not specified,
+   * the browser locale will be used instead.
    */
   locale: z.string().optional(),
+
+  /**
+   * Detect locale from browser navigator.languages/navigator.language.
+   * If true, will use browser locale as initial locale (with 'en' fallback).
+   * @default false
+   */
+  detectBrowserLocale: z.boolean().default(false),
 
   /**
    * Fallback locale(s).

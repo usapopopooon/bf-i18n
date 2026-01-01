@@ -1,6 +1,6 @@
 {
   "name": "@bf-i18n/core",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Core library for backend-friendly i18n",
   "type": "module",
   "main": "./dist/index.cjs",

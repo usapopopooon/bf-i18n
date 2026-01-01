@@ -4,7 +4,7 @@
 export * from './schemas/index.js';
 
 // Export core classes
-export { I18n, createI18n } from './i18n.js';
+export { I18n, createI18n, type MissingKeyInfo } from './i18n.js';
 export { Translator, type TranslatorOptions } from './translator.js';
 export {
   Interpolator,
@@ -13,3 +13,8 @@ export {
 } from './interpolator.js';
 export { Pluralizer, createRailsPluralizer, createLaravelPluralizer } from './pluralizer.js';
 export { CompatibilityChecker, checkCompatibility } from './compatibility.js';
+export {
+  detectBrowserLocale,
+  isBrowser,
+  type BrowserLocaleOptions,
+} from './locale-detection.js';

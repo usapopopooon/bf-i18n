@@ -12,8 +12,18 @@ import {
 import { Interpolator } from './interpolator.js';
 import { Pluralizer } from './pluralizer.js';
 import { Translator } from './translator.js';
+import { detectBrowserLocale } from './locale-detection.js';
 
 type ChangeListener = () => void;
+
+/**
+ * Information about a missing translation key.
+ */
+export interface MissingKeyInfo {
+  key: string;
+  locale: string;
+  timestamp: Date;
+}
 
 /**
  * メインのI18nクラス
@@ -24,11 +34,14 @@ export class I18n {
   private readonly translator: Translator;
   private readonly changeListeners: Set<ChangeListener> = new Set();
   private currentLocale: string;
+  private readonly missingKeys: Map<string, MissingKeyInfo> = new Map();
 
   constructor(options: I18nOptions) {
     // Zodでオプションを検証・正規化
     this.options = I18nOptionsSchema.parse(options);
-    this.currentLocale = this.options.locale ?? this.options.defaultLocale;
+
+    // Determine initial locale
+    this.currentLocale = this.determineInitialLocale();
 
     // モードに応じたInterpolatorとPluralizerを作成
     const interpolator = this.createInterpolator();
@@ -47,6 +60,29 @@ export class I18n {
       missingTranslationHandler: this.options.missingTranslationHandler,
       debug: this.options.debug,
     });
+  }
+
+  /**
+   * Determine the initial locale based on options.
+   * Priority: options.locale > browser detection > defaultLocale
+   */
+  private determineInitialLocale(): string {
+    // If locale is explicitly specified, use it
+    if (this.options.locale) {
+      return this.options.locale;
+    }
+
+    // If browser locale detection is enabled, try to detect
+    if (this.options.detectBrowserLocale) {
+      const availableLocales = Object.keys(this.options.translations);
+      return detectBrowserLocale({
+        availableLocales,
+        fallback: this.options.defaultLocale,
+      });
+    }
+
+    // Fall back to default locale
+    return this.options.defaultLocale;
   }
 
   /**
@@ -121,13 +157,31 @@ export class I18n {
 
   /**
    * ロケールを設定
+   * @throws Error if locale is empty or invalid
    */
   set locale(newLocale: string) {
-    if (this.currentLocale !== newLocale) {
-      this.currentLocale = newLocale;
-      this.translator.setLocale(newLocale);
+    // Validate locale string
+    if (!newLocale || typeof newLocale !== 'string') {
+      throw new Error('Locale must be a non-empty string');
+    }
+
+    const trimmed = newLocale.trim();
+    if (trimmed.length === 0) {
+      throw new Error('Locale must be a non-empty string');
+    }
+
+    if (this.currentLocale !== trimmed) {
+      this.currentLocale = trimmed;
+      this.translator.setLocale(trimmed);
       this.notifyChange();
     }
+  }
+
+  /**
+   * Check if a locale is available in translations.
+   */
+  hasLocale(locale: string): boolean {
+    return this.availableLocales.includes(locale);
   }
 
   /**
@@ -141,7 +195,22 @@ export class I18n {
    * 翻訳を取得
    */
   t(key: string, options?: TranslateOptions): string {
-    return this.translator.translate(key, options);
+    const result = this.translator.translate(key, options);
+
+    // Track missing keys (when result equals the key, it means translation was not found)
+    const locale = options?.locale ?? this.currentLocale;
+    if (result === key && !this.exists(key, locale)) {
+      const mapKey = `${locale}:${key}`;
+      if (!this.missingKeys.has(mapKey)) {
+        this.missingKeys.set(mapKey, {
+          key,
+          locale,
+          timestamp: new Date(),
+        });
+      }
+    }
+
+    return result;
   }
 
   /**
@@ -183,6 +252,28 @@ export class I18n {
    */
   getTranslations(): Translations {
     return this.options.translations;
+  }
+
+  /**
+   * Get all missing translation keys that have been requested.
+   * Useful for debugging and identifying untranslated strings.
+   */
+  getMissingKeys(): MissingKeyInfo[] {
+    return Array.from(this.missingKeys.values());
+  }
+
+  /**
+   * Clear the list of tracked missing keys.
+   */
+  clearMissingKeys(): void {
+    this.missingKeys.clear();
+  }
+
+  /**
+   * Check if any translation keys are missing.
+   */
+  hasMissingKeys(): boolean {
+    return this.missingKeys.size > 0;
   }
 }
 
